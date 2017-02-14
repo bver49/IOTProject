@@ -1,0 +1,41 @@
+<% layout('../layout') %>
+<div class="content"><br><br>
+      <form id="denied">
+        <p style="color:white;padding-bottom:5px;">REASON</p>
+        <textarea name="reason"></textarea>
+        <input type="hidden" name="email" value="<%= apply.email %>">
+        <input type="hidden" name="id" value="<%= apply.id %>">
+        <a class="btn v2" href="/classroom/check">RETURN</a>
+        <a class="btn v2" id="denied-submit">SEND</a>
+      </form>
+</div>
+  <script>
+  $('#denied-submit').on('click', function() {
+    var data = $("#denied").serialize();
+    $.ajax({
+      url: '/classroom/denied',
+      type: 'POST',
+      data: data,
+      success: function(response) {
+        if(response=="Success"){
+          location.href = "/classroom/check";
+        }
+      }
+    });
+  });
+  </script>
+  <style>
+    #denied{
+      width:80%;
+      display: block;
+      margin:0 auto;;
+      padding-top:20px;
+    }
+    #denied textarea,#denied textarea:focus{
+      color:white;
+      width:100%;
+      height:300px;
+      background:black;
+      margin-bottom:40px;
+    }
+  </style>

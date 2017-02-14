@@ -1,0 +1,147 @@
+<% layout('./layout') %>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+  <style>
+    .axis path {
+      fill: none;
+      stroke: #777;
+      shape-rendering: crispEdges;
+    }
+    .axis.x{
+      font-size:10px;
+    }
+  </style>
+  <script>
+    var rawdata = [];
+
+    function draw() {
+
+      var size = {
+        width: 350,
+        height: 200
+      }
+
+      var margins = {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 50
+      }
+      //讀取raw data 並且 Parse 日期
+      var parseDate = d3.time.format("%Y/%m/%d-%M:%S").parse;
+      var data = [];
+      var data2 = [];
+
+      //抓最後10筆資料
+      if ((rawdata.length - 5) < 0) {
+        var k = 0;
+      } else {
+        var k = rawdata.length - 5;
+      }
+      for (var i = k; i < rawdata.length; i++) {
+        data.push({
+          "temp": rawdata[i].temp,
+          "date": parseDate(rawdata[i].date)
+        });
+        data2.push({
+          "dry": rawdata[i].dry,
+          "date": parseDate(rawdata[i].date)
+        });
+      }
+
+      //設定SVG長寬
+      var vis = d3.select("#chart")
+        .attr("width", size.width)
+        .attr("height", size.height);
+
+      //設定XY軸比例
+      var xScale = d3.time.scale()
+        .range([margins.left, size.width - margins.left - margins.right])
+        .domain(d3.extent(data, function(d) {
+          return d.date;
+        }));
+
+      var yScale = d3.scale.linear()
+        .range([size.height - margins.top, margins.bottom])
+        .domain([0, 60]);
+
+
+      //設定XY軸格式
+      var xAxis = d3.svg.axis().scale(xScale).ticks(d3.time.second,2).orient("bottom").tickFormat(d3.time.format("%M:%S"));
+
+      var yAxis = d3.svg.axis()
+        .scale(yScale).ticks(5)
+        .orient("left");
+
+      vis.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + (size.height - margins.bottom) + ")")
+        .call(xAxis);
+
+      vis.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(" + (margins.left) + ",0)")
+        .call(yAxis);
+
+      //數據來源
+      var lineGen = d3.svg.line()
+        .x(function(d) {
+          return xScale(d.date);
+        })
+        .y(function(d) {
+          return yScale(d.temp);
+        }).interpolate('basis');
+
+      var lineGen2 = d3.svg.line()
+        .x(function(d) {
+          return xScale(d.date);
+        })
+        .y(function(d) {
+          return yScale(d.dry);
+        }).interpolate('basis');
+
+      //開始畫線
+      vis.append('path')
+        .attr('d', lineGen(data)) //linegen = 資料
+        .attr('stroke', 'red')
+        .attr('stroke-width', 1)
+        .attr('fill', 'none');
+
+      vis.append('path')
+        .attr('d', lineGen2(data2)) //linegen = 資料
+        .attr('stroke', 'blue')
+        .attr('stroke-width', 1)
+        .attr('fill', 'none');
+    }
+
+    $(document).ready(function() {
+      setInterval(function() {
+        $.ajax({
+          url: '/boardJwz0/dht/status',
+          type: 'POST',
+          success: function(response) {
+            var date = new Date();
+            d = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDay() + "-" + date.getMinutes() + ":" + date.getSeconds();
+            t = date.getHours()+":"+date.getMinutes() + ":" + date.getSeconds();
+            rawdata.push({
+              "temp": response.t,
+              "date": d,
+              "dry": response.h
+            });
+            $("#temp").text(response.t + " C");
+            $("#dry").text(response.h + " %");
+            $("#time").text(t);
+          }
+        });
+        $('#chart').empty(); //empty svg for redraw
+        draw(); //draw
+      },2000);
+    });
+  </script>
+  <div class="content">
+    <br><br><br><br>
+    <div class="timebox">目前時間</div><div class="timebox"><span id="time">Y</span></div><br>
+    <svg id="chart"></svg><br><br><br>
+    <div class="dhtbox"><span id="temp">x</span><br><br>Temp</div>
+    <div class="dhtbox"><span id="dry">Y</span><br><br>Humidity</div>
+  </div>

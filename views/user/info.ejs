@@ -1,0 +1,60 @@
+<% layout('../layout') %>
+<div class="content" style="padding-top:40px;">
+	<div class="photoarea big">
+		<% if(user.status < 2){ %>
+			<img class="photo" src="../img/profile.png">
+		<% }else{ %>
+			<img class="photo" src="../img/profile1.jpg">
+		<% } %>
+	</div><br><br>
+	<div class="userinfo">
+    <% if(user.status < 2){ %>
+      <p><%= user.sid %></p>
+    <% }else{ %>
+      <p>NCKUIIM</p>
+    <% } %>
+		<p><%= user.name %></p>
+    <% if(user.status == 2){ %>
+      <p>行政人員</p>
+    <% }else{ %>
+      <p>大學部學生</p>
+    <% } %>
+		<br>
+    <% if(user.status == 1){ %>
+      <p>租借次數：<%= apply %></p>
+			<p>違規次數：<span style="color:transparent;">0</span>0</p>
+    <% } %>
+		<br>
+		<p><%= user.email %></p>
+		<p>上次修改資料：<%= user.updated %></p>
+	</div><br>
+	<a class="btn v2" href="./edit">EDIT</a>
+</div>
+
+<script>
+function adjustpic() {
+  var height = $(".photo").prop("height");
+  var width = $(".photo").prop("width");
+  var length = $(".photoarea").css("width").replace("px", "");
+  var half = length/2 ;
+  var move = 0 ;
+  if (width > height) {
+    $(".photo").css("height",length);
+    $(".photo").css("width","auto");
+    width = $(".photo").attr("width");
+    move = half - width/2;
+    $(".photo").css("margin-left",move);
+  }
+  else {
+    $(".photo").css("width",length);
+    $(".photo").css("height","auto");
+    height = $(".photo").attr("height");
+    move = half - height/2;
+    $(".photo").css("margin-top",move);
+  }
+}
+
+$(document).ready(function(){
+  adjustpic();
+});
+</script>

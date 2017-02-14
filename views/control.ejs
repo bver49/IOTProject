@@ -1,0 +1,38 @@
+<% layout('./layout') %>
+  <script src="../js/index.js"></script>
+  <div class="voicedark">
+    <div class="sirispeaks">
+      <p class="siri" id="siri">能幫你什麼嗎？</p>
+      <p class="siri tiny">請說出指令。</p>
+    </div>
+    <div class="userspeaks">
+      <p></p>
+    </div>
+  </div>
+  <div class="upper">
+  	<div class="card" id="ac">
+  		<p class="cardleft">現在溫度<br><span id="temp">27</span>°C</p>
+  		<p class="cardright">冷氣<br><span id="acstatus">目前關閉</span></p>
+  	</div>
+  	<div class="card" id="lightbtn">
+  		<p class="cardleft">-</p>
+  		<p class="cardright">電燈<br><span id="lightstatus">目前關閉</span></p>
+  	</div>
+  	<div class="card" id="powerbtn">
+  		<p class="cardleft">-</p>
+  		<p class="cardright">電風扇<br><span id="relaystatus">目前關閉</span></p>
+  	</div>
+  	<div class="card" id="autolight">
+  		<p class="cardleft">-</p>
+  		<p class="cardright">感光調節<br><span id="autostatus">未啟動</span></p>
+  	</div>
+  	<div class="card" id="alarmbtn">
+  		<p class="cardleft">-</p>
+  		<p class="cardright">闖入警報<br><span id="alarmstatus">未啟動</span></p>
+  	</div>
+  </div>
+  <div class="bottom">
+  	<div class="voicebtn" id="voice_btn">
+  		<img class="voiceico" src="../../img/mic.png">
+  	</div>
+  </div>

@@ -1,0 +1,39 @@
+<% layout('../layout') %>
+  <div class="content">
+    <img class="logo" src="../../img/logo.png">
+    <form class="inputform" id="loginform">
+      <div class="field">
+        <label>ID</label>
+        <br>
+        <input type="text" name="sid">
+      </div>
+      <br>
+      <div class="field">
+        <label>PASSWORD</label>
+        <br>
+        <input type="password" name="password">
+      </div>
+      <br>
+      <br>
+      <a class="btn v2" id="loginform-submit">LOGIN</a>
+      <a class="btn hid" href="/user/signup">REGISTER</a>
+    </form>
+  </div>
+  <script>
+    $('#loginform-submit').on('click', function() {
+      var data = $("#loginform").serialize();
+      $.ajax({
+        url: '/user/auth',
+        type: 'POST',
+        data: data,
+        success: function(response) {
+          console.log(response);
+          if (response == "Login") {
+            location.href = "/";
+          } else {
+            alert("登入失敗");
+          }
+        }
+      });
+    });
+  </script>

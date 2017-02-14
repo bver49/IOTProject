@@ -1,0 +1,50 @@
+<% layout('../layout') %>
+<div class="upper">
+  <% for(var i in apply){ %>
+    <% if(apply[i].status == 4){ %>
+      <div class="nolinecard inuse">
+    <% }else{ %>
+      <div class="nolinecard">
+    <% } %>
+      <p class="cardleft">
+        <%= apply[i].rentdate %><br>
+        <% if(apply[i].renttimeB < 10){ %>
+          0<%= apply[i].renttimeA %>00-0<%= apply[i].renttimeB %>00
+        <% }else if(apply[i].renttimeB > 10 && apply[i].renttimeA < 10 ){ %>
+          0<%= apply[i].renttimeA %>00-<%= apply[i].renttimeB %>00
+        <% }else{ %>
+          <%= apply[i].renttimeA %>00-<%= apply[i].renttimeB %>00
+        <% } %>
+      </p>
+      <p class="cardright">
+        <%= apply[i].classroom %><br>
+        <% if(apply[i].status == 1){ %>
+          已否決
+        <% }else if(apply[i].status == 3){ %>
+          未使用
+        <% }else if(apply[i].status == 4){ %>
+          使用中
+        <% }else{ %>
+          已結束
+        <% } %>
+      </p>
+    </div><hr>
+  <% } %>
+</div>
+<div class="bottom tiny">
+	<img class="nextico" src="../img/next.png">
+</div>
+<script>
+  $(document).ready(function(){
+    $(window).scroll(function() {
+  		var now = $(document).scrollTop() + $(window).height();
+  		var full = $(document).height();
+	    if ( now >= full - 60) {
+				$(".nextico").fadeOut(500);
+	    }
+      else {
+  			$(".nextico").fadeIn(500);
+      }
+    });
+  });
+</script>

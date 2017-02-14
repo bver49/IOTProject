@@ -1,0 +1,43 @@
+<% layout('../layout') %>
+  <div class="ui centered stackable grid" style="margin-top:2px;">
+    <div class="sixteen wide column">
+      <div class="detailbox">
+        <p>NAME : <span><%= data.name %></span></p>
+        <p>Student ID : <span><%= data.sid %></span></p>
+        <p>EMAIL : <span><%= data.email %></span></p>
+      </div>
+      <% if(data.status == 0){ %>
+        <a class="btn" id="accept" data-id="<%= data.id %>">AUTHORIZE</a>
+      <% } %>
+      <a class="btn" id="denied" data-id="<%= data.id %>">DELETE</a>
+    </div>
+  </div>
+<script>
+  $(document).ready(function(){
+    $('#accept').on('click',function(){
+      var id = this.getAttribute("data-id");
+      $.ajax({
+        url: '/user/authorize/'+id,
+        type: 'POST',
+        success: function(response) {
+          if (response == "Success") {
+            location.href = "/user/admin";
+          }
+        }
+      });
+    });
+
+    $('#denied').on('click',function(){
+      var id = this.getAttribute("data-id");
+      $.ajax({
+        url: '/user/del/'+id,
+        type: 'POST',
+        success: function(response) {
+          if (response == "Success") {
+            location.href = "/user/admin";
+          }
+        }
+      });
+    });
+  });
+</script>

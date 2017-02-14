@@ -1,0 +1,36 @@
+<% layout('../layout') %>
+  <div class="content">
+    <br><br><br><br>
+      <p style="color:white;width:100%;text-align:center;font-size:12px;opacity:0.9;">Click the block to<br> check request.</p>
+      <% for(var i in apply){ %>
+        <% if(apply[i].status==0){ %>
+          <div class="boxlist" data-id="<%= apply[i].id %>">
+            <p>
+              <%= apply[i].rentdate %>
+              <span style="float:right;"><%= apply[i].classroom %></span>
+            </p>
+            <p>
+              <%= apply[i].renttimeA %>:00 - <%= apply[i].renttimeB %>:00
+              <span style="float:right;"><%= apply[i].name %></span>
+            </p>
+          </div>
+        <% } %>
+      <% } %>
+      <% if(apply.length ==0){ %>
+        <div class="boxlist" style="cursor:none;" data-id="no">
+          <p style="text-align:center;">
+            沒有申請
+          </p>
+        </div>
+      <% } %>
+  </div>
+  <script>
+    $(document).ready(function() {
+      $(".boxlist").on('click', function() {
+        var id = this.getAttribute("data-id");
+        if(id!="no"){
+          location.href = "/classroom/"+id;
+        }
+      });
+    });
+  </script>

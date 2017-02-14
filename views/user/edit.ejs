@@ -1,0 +1,78 @@
+<% layout('../layout') %>
+<div class="content">
+	<br><br>
+	<% if(user.status < 2){ %>
+		<form class="inputform" id="userform" style="padding-top:20px;">
+	      <div class="field">
+	        <label>NAME</label><br>
+	        <input type="text" name="name" value="<%= user.name %>" readonly><br>
+	      </div><br>
+	      <div class="field">
+	        <label>STUDENT ID</label><br>
+	        <input type="text" name="sid" value="<%= user.sid %>" readonly><br>
+	      </div><br>
+	      <div class="field">
+	        <label>EMAIL</label><br>
+	        <input type="text" name="email" value="<%= user.email %>"><br>
+	      </div><br>
+	      <div class="field">
+	        <label>NEW PASSWORD</label><br>
+	        <input type="password" name="newp" placeholder="若不更新密碼請留空"><br>
+	      </div><br>
+	      <div class="field">
+	        <label>PASSWORD</label><br>
+	        <input type="password" name="password" placeholder="更新資料請輸入密碼"><br>
+	      </div><br><br>
+		    <a class="btn v2" id="userform-submit">SAVE</a>
+		</form>
+	<% }else{ %>
+		<form class="inputform" id="userform" style="padding-top:20px;">
+				<input type="hidden" name="grade" value="<%= user.grade %>">
+				<div class="field">
+					<label>NAME</label><br>
+					<input type="text" name="name" value="<%= user.name %>"><br>
+				</div><br>
+				<div class="field">
+					<label>ID</label><br>
+					<input type="text" name="sid" value="<%= user.sid %>" readonly><br>
+				</div><br>
+				<div class="field">
+					<label>EMAIL</label><br>
+					<input type="text" name="email" value="<%= user.email %>"><br>
+				</div><br>
+				<div class="field">
+					<label>NEW PASSWORD</label><br>
+					<input type="password" name="newp" placeholder="若不更新密碼請留空"><br>
+				</div><br>
+				<div class="field">
+					<label>PASSWORD</label><br>
+					<input type="password" name="password" placeholder="更新資料請輸入密碼"><br>
+				</div><br><br>
+				<a class="btn v2" id="userform-submit">SAVE</a>
+		</form>
+	<% } %>
+</div>
+  <script>
+    $('#userform-submit').on('click', function() {
+      var data = $("#userform").serialize();
+      $.ajax({
+        url: '/user/update',
+        type: 'POST',
+        data: data,
+        success: function(response) {
+          if(response=="Success"){
+            location.href = "/user/info";
+          }
+          else if(response=="nopw"){
+            alert("請輸入密碼");
+          }
+          else if(response=="nosamepwe"){
+            alert("密碼不一致");
+          }
+          else{
+            alert("密碼錯誤");
+          }
+        }
+      });
+    });
+  </script>

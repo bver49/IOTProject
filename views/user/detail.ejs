@@ -1,0 +1,15 @@
+<% layout('../layout') %>
+<div class="content">
+	<br>
+	<div class="donestatus">
+		<img class="doneico" src="../../img/done.png">
+		<p class="donetxt">You are registered.</p>
+	</div>
+	<hr>
+	<div class="donedetail">
+		<p class="txtleft">NAME:<br>ID:<br>EMAIL:</p>
+		<p class="txtright"><%= user.name %><br><%= user.sid %><br><br><%= user.email %></p>
+	</div>
+	<hr><br><br>
+	<a class="btn v2" href="../">START</a>
+</div>

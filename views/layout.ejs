@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>系聯網 App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="../../js/semantic.js"></script>
+  <script type="text/javascript" src="../../js/main.js"></script>
+  <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
+  <script src="https://webduinoio.github.io/webduino-blockly/webduino-blockly.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../css/semantic.css">
+  <link rel="stylesheet" type="text/css" href="../../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../../css/sidebar.css">
+</head>
+<body>
+  <div class="topbar">
+    <% if(user){ %>
+      <img class="menu" src="../../img/menu.png">
+    <% }else{ %>
+      <img class="nomenu" src="../../img/menu.png">
+    <% } %>
+  	<div class="bartext"><%= title %></div>
+    <div class="darken"></div>
+  </div>
+  <% if(user){ %>
+    <div class="sidebar">
+    	<img class="menu on_" src="../../img/menu.png">
+    	<img class="menu on" src="../../img/menu_on.png">
+      	<div class="sideinfo">
+      		<p class="sidename"><%= user.name %></p>
+      		<p class="sideid"><%= user.sid %></p>
+      		<a href="/user/logout" class="sidelogout">LOGOUT</a>
+      	</div>
+        <div class="sidefunc"><a href="/user/info" class="midtext">PROFILE</a></div>
+        <% if( user.status == 1 ){ %>
+          <div class="sidefunc"><a href="/d3" class="midtext">MONITOR</a></div>
+          <div class="sidefunc"><a href="/classroom/verify" class="midtext">CONTROL</a></div>
+          <div class="sidefunc"><a href="/classroom/new" class="midtext">APPLY</a></div>
+          <div class="sidefunc"><a href="/classroom/status" class="midtext">RECORD</a></div>
+        <% }else if( user.status == 2 ){ %>
+          <div class="sidefunc"><a href="/d3" class="midtext">MONITOR</a></div>
+          <div class="sidefunc"><a href="/control" class="midtext">CONTROL</a></div>
+          <div class="sidefunc"><a href="/classroom/check" class="midtext">REQUEST</a></div>
+          <div class="sidefunc"><a href="/classroom/record" class="midtext">RECORD</a></div>
+          <div class="sidefunc"><a href="/user/admin" class="midtext">ADMIN </a></div>
+        <% } %>
+    </div>
+  <% } %>
+  <div id="main">
+    <%- body %>
+  </div>
+</body>
+
+</html>

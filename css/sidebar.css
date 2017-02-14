@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+/* 側邊欄 */
+
+.sidebar {
+  position: fixed;
+  z-index: 12;
+  width: 262px;
+  height: 102%;
+  top: -1%;
+  left: -382px;
+  border: rgba(255, 255, 255, 0.7) 2px solid;
+  background: black;
+}
+.menu {
+  position: absolute;
+  z-index: 11;
+  width: 19px;
+  height: 12px;
+  margin: 37px 18px;
+  cursor: pointer;
+  top:0px;
+}
+.menu.on {
+  z-index: 14;
+  right: 26px;
+  margin: 37px 0px;
+  cursor: pointer;
+}
+.menu.on_ {
+  z-index: 13;
+  right: 26px;
+  margin: 37px 0px;
+}
+.menu.on:hover {
+  opacity: 0;
+}
+
+/* 上半部 */
+
+.sideinfo {
+  position: relative;
+  width: 100%;
+  height: 168px;
+  /*left: -2px;*/
+  border: rgba(255, 255, 255, 0.7) 2px solid;
+  border-right:none;
+  padding-top: 20px;
+}
+.sidename {
+  font-family: sans-serif, serif, Microsoft JhengHei;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 31px;
+  letter-spacing: 8px;
+  margin: 39px 30px;
+  font-weight: 600;
+}
+.sideid {
+  font-family: sans-serif, serif, Microsoft JhengHei;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  letter-spacing: 3px;
+  margin: -33px 33px;
+  font-weight: 400;
+}
+.sidelogout{
+  font-family: sans-serif, serif, Microsoft JhengHei;
+  color: rgba(114, 240, 201, 0.7);
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: 400;
+  margin: 53px 34px;
+  padding: 7px 8px;
+  box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.7);
+  width: 80px;
+  cursor: pointer;
+  display:block;
+}
+.sidelogout:hover {
+  color: black;
+  box-shadow: 0px 0px 0px 1px #72f0c9;
+  background: #72f0c9;
+}
+.sidelogout:active {
+  color: black;
+  box-shadow: 0px 0px 0px 1px rgba(114, 240, 201, 0.5);
+  background: rgba(114, 240, 201, 0.5);
+}
+
+/* 下半部 */
+
+.sidefunc {
+  position: relative;
+  height: 64px;
+  width: 100%;
+  /*left: -2px;*/
+  margin-top: -2px;
+  border: rgba(255, 255, 255, 0.7) 2px solid;
+  border-right:none;
+  cursor: pointer;
+}
+.sidefunc a {
+  font-size: 15px;
+  letter-spacing: 3px;
+  margin: 0px 40px;
+  line-height: 64px;
+  font-weight: 400;
+  color:white;
+}
+.sidefunc a:hover {
+  color: #72f0c9;
+}
+.sidefunc p:active {
+  color: rgba(114, 240, 201, 0.5);
+}
+
+/* 螢幕暗化 */
+
+.darken {
+  position: fixed;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  right: 0px;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+}

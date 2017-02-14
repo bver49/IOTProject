@@ -1,0 +1,50 @@
+<% layout('../layout') %>
+  <div class="content">
+  	<form class="inputform" id="userform" style="padding-top:50px;">
+      <div style="color:red;padding:10px;line-height:20px;" id="errmsg"></div>
+  		<div class="field">
+  	        <label>NAME</label><br>
+  	        <input type="text" name="name">
+  	    </div><br>
+  	    <div class="field">
+  	        <label >STUDENT ID</label><br>
+  	        <input type="text" name="sid"><br>
+  	    </div><br>
+  	    <div class="field">
+  	        <label >EMAIL</label><br>
+  	        <input type="text" name="email"><br>
+  	    </div><br>
+  	    <div class="field">
+  	        <label >PASSWORD</label><br>
+  	        <input type="password" name="password"><br>
+  	    </div><br>
+  	    <div class="field">
+  	        <label >PASSWORD CONFIRM</label><br>
+  	        <input type="password" name="password2"><br>
+  	    </div><br><br>
+  	    <a class="btn v2" id="userform-submit">REGISTER</a>
+  	    <a class="btn hid" href="/user/login">LOGIN</a>
+  	</form>
+  </div>
+  <script>
+    $('#userform-submit').on('click', function() {
+      var data = $("#userform").serialize();
+      $.ajax({
+        url: '/user/create',
+        type: 'POST',
+        data: data,
+        success: function(response) {
+          console.log(response);
+          if(response=="Success"){
+            location.href = "/user/detail";
+          }
+          else{
+            $("#errmsg").empty();
+            for(var i in response){
+              $("#errmsg").append(response[i].msg+"<br>");
+            }
+          }
+        }
+      });
+    });
+  </script>

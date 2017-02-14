@@ -1,0 +1,21 @@
+<% layout('../layout') %>
+  <div class="content">
+    <br><br><br><br>
+    <p style="color:white;width:100%;text-align:center;font-size:12px;opacity:0.9;">Click the block to<br> authorize user.</p>
+      <% for(var i in data){ %>
+          <div class="boxlist" data-id="<%= data[i].id %>">
+            <p>
+              <%= data[i].name %>
+              <span style="float:right;"><%= data[i].sid %></span>
+            </p>
+          </div>
+      <% } %>
+  </div>
+  <script>
+    $(document).ready(function() {
+      $(".boxlist").on('click', function() {
+        var id = this.getAttribute("data-id");
+        location.href = "/user/"+id;
+      });
+    });
+  </script>

@@ -1,0 +1,46 @@
+<% layout('./layout') %>
+<div class="content">
+	<img class="logo" src="../../img/logo.png">
+	<br><br>
+	<p class="bigtext verify">請輸入驗證碼</p><br><br>
+	<form class="inputform" id="verifyform">
+		<div class="field quarter">
+		<input class="code" type="text" maxlength="1" name="code1">
+		</div>
+		<div class="field quarter">
+		<input class="code" type="text" maxlength="1" name="code2">
+		</div>
+		<div class="field quarter">
+		<input class="code" type="text" maxlength="1" name="code3">
+		</div>
+		<div class="field quarter">
+		<input class="code" type="text" maxlength="1" name="code4">
+		</div><br><br><br><br><br>
+		<a class="btn v2" id="verify-submit">START</a>
+	</form>
+</div>
+<script>
+$('#verify-submit').on('click', function() {
+	var data = $("#verifyform").serialize();
+	$.ajax({
+		url: '/classroom/verify',
+		type: 'POST',
+		data: data,
+		success: function(response) {
+			console.log(response);
+			if(response=="Success"){
+				location.href="../control";
+			}
+			else if(response=="Not yet"){
+				alert("尚未開放");
+			}
+			else if(response=="Over"){
+				alert("已過時段");
+			}
+			else {
+				alert("驗證失敗");
+			}
+		}
+	});
+});
+</script>

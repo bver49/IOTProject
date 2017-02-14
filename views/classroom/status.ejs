@@ -1,0 +1,30 @@
+<% layout('../layout') %>
+<div class="content">
+  <br><br><br>
+    <% for(var i in apply){ %>
+      <div class="rentrecord">
+        <p>
+          <%= apply[i].rentdate %>
+          <span style="float:right;"><%= apply[i].classroom %></span>
+        </p>
+        <p>
+          <% if(apply[i].renttimeB < 10){ %>
+            0<%= apply[i].renttimeA %>00-0<%= apply[i].renttimeB %>00
+          <% }else if(apply[i].renttimeB > 10 && apply[i].renttimeA < 10 ){ %>
+            0<%= apply[i].renttimeA %>00-<%= apply[i].renttimeB %>00
+          <% }else{ %>
+            <%= apply[i].renttimeA %>00-<%= apply[i].renttimeB %>00
+          <% } %>
+          <span style="float:right;">
+            <% if(apply[i].status == 0){ %>
+              等待審核中
+            <% }else if(apply[i].status == 1){ %>
+              未通過審核
+            <% }else{ %>
+              審核通過
+            <% } %>
+          </span>
+        </p>
+      </div>
+    <% } %>
+</div>

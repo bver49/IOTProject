@@ -1,0 +1,177 @@
+<% layout('../layout') %>
+
+<div class="content">
+	<br><br><br>
+	<form class="inputform" id="classroomform">
+      <div style="color:red;padding:10px;line-height:20px;" id="errmsg"></div>
+      <div class="field">
+        <label>APPLICANT</label><br>
+        <input type="text" name="name" value="<%= user.name %>" readonly>
+      </div><br>
+      <div class="field">
+        <label>DATE</label><br>
+        <input type="text" id="date" class="options form-control floating-label" name="rentdate" style="color: white;"><br>
+      </div><br>
+	    <div class="field half">
+	        <label>FROM</label><br>
+          <select id="renttimeA" name="renttimeA" style="width: 100px;height: 25px;">
+            <option value="8">08:00</option>
+            <option value="9">09:00</option>
+            <option value="10">10:00</option>
+            <option value="11">11:00</option>
+            <option value="12">12:00</option>
+            <option value="13">13:00</option>
+            <option value="14">14:00</option>
+            <option value="15">15:00</option>
+            <option value="16">16:00</option>
+            <option value="17">17:00</option>
+            <option value="18">18:00</option>
+            <option value="19">19:00</option>
+            <option value="20">20:00</option>
+						<option value="21">21:00</option>
+						<option value="22">22:00</option>
+          </select>
+	    </div>
+	    <div class="field half">
+	        <label>TO</label><br>
+          <select id="renttimeB" name="renttimeB" style="width: 100px;height: 25px;">
+            <option value="8">08:00</option>
+            <option value="9">09:00</option>
+            <option value="10">10:00</option>
+            <option value="11">11:00</option>
+            <option value="12">12:00</option>
+            <option value="13">13:00</option>
+            <option value="14">14:00</option>
+            <option value="15">15:00</option>
+            <option value="16">16:00</option>
+            <option value="17">17:00</option>
+            <option value="18">18:00</option>
+            <option value="19">19:00</option>
+            <option value="20">20:00</option>
+						<option value="21">21:00</option>
+						<option value="22">22:00</option>
+          </select>
+	    </div><br>
+	    <div class="field">
+	        <label>ROOM</label><br>
+          <select name="classroom" style="width: 100px;height: 25px;">
+            <option value="61101">61101</option>
+            <option value="61102">61102</option>
+            <option value="61103">61103</option>
+            <option value="61204">61204</option>
+            <option value="61202">61202</option>
+            <option value="61204">61204</option>
+            <option value="61206">61206</option>
+            <option value="61208">61208</option>
+            <option value="61200">61200</option>
+          </select><br>
+	    </div><br>
+	    <div class="field">
+	        <label>BRIEF DESCRIPTION</label><br>
+	        <textarea name="rentreason" rows="4" cols="50" style="width: 100%;"></textarea>
+	    </div><br>
+      <div class="field">
+        <label>EMAIL</label><br>
+        <input type="text" name="email" value="<%= user.email %>"><br>
+      </div><br><br>
+	    <a class="btn v2" id="classroomform-submit">SEND</a>
+	</form>
+</div>
+  <script>
+    $('#classroomform-submit').on('click', function() {
+      var data = $("#classroomform").serialize();
+      $.ajax({
+        url: '/classroom/create',
+        type: 'POST',
+        data: data,
+        success: function(response) {
+          if (response == "Success") {
+            location.href = "/classroom/detail";
+          }
+          else{
+            $("#errmsg").empty();
+            for(var i in response){
+              $("#errmsg").append(response[i].msg+"<br>");
+            }
+          }
+        }
+      });
+    });
+    /*
+    $("#renttimeA").on('change',function(){
+      var time = this.value;
+      $("#renttimeB option").each(function(){
+        if($(this).val() < time ){
+          $(this).hide();
+        }
+        else{
+          $(this).show();
+        }
+      });
+    });*/
+  </script>
+  <link rel="stylesheet" href="../../css/bootstrap-material-datetimepicker.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+  <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+  <script type="text/javascript" src="../../js/bootstrap-material-datetimepicker.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#date').bootstrapMaterialDatePicker({
+        time: false,
+        clearButton: true
+      });
+      $.material.init()
+    });
+  </script>
+  <style>
+    .control-label{
+      display: none;
+    }
+    .dtp-header {
+      display: none;
+    }
+
+    .dtp div.dtp-date,
+    .dtp div.dtp-time,
+    .dtp .dtp-buttons,
+    .dtp div.dtp-picker,
+    .dtp table.dtp-picker-days tr > td,
+    .dtp table.dtp-picker-days tr > td > a,
+    .dtp .dtp-picker-time > a,
+    .dtp table.dtp-picker-days tr > th,
+    .dtp div.dtp-actual-year,
+    .material-icons {
+      background: black;
+      color: white;
+      padding:4.5px;
+    }
+    .dtp-actual-num{
+      padding-bottom:10px;
+    }
+
+    .dtp-picker,
+    .dtp-date {
+      border-bottom-color: black;
+    }
+
+    .dtp-buttons{
+      width:100%;
+    }
+
+    .dtp-buttons,.dtp-btn-now,.dtp-btn-ok,.dtp-btn-clear,.dtp-btn-cancel,
+    .dtp-picker {
+      display:inline-block;
+      border-top-color: black;
+      background: black;
+      border: 0;
+    }
+    .dtp-btn-ok,.dtp-btn-clear,.dtp-btn-cancel{
+      width:33%;
+    }
+
+    .dtp table.dtp-picker-days tr > td > a.selected {
+      background: rgba(114, 240, 201, 0.3);
+      color: white;
+    }
+  </style>

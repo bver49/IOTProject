@@ -1,0 +1,36 @@
+<% layout('../layout') %>
+<div class="content">
+      <div class="detailbox">
+        <p>Date : <span><%= apply.rentdate %></span></p>
+        <p>Time : <span><%= apply.renttimeA %>:00 - <%= apply.renttimeB %>:00</span></p>
+        <p>Room : <span>工資系館 <%= apply.classroom %></span></p>
+        <hr style="background:white;width:100%;">
+        <p>Brief Description  : <br>
+          <span style="float:none;overflow-wrap:break-word;"><%= apply.rentreason %></span>
+        </p>
+      </div>
+      <a class="btn v2" id="accept" data-id="<%= apply.id %>" data-e="<%= apply.email %>">Accept</a>
+      <a class="btn v2" id="denied" data-id="<%= apply.id %>">Denied</a>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#accept').on('click',function(){
+      var id = this.getAttribute("data-id");
+      var e = this.getAttribute("data-e");
+      $.ajax({
+        url: '/classroom/accept/'+id+"?e="+e,
+        type: 'POST',
+        success: function(response) {
+          if (response == "Success") {
+            location.href = "/classroom/check";
+          }
+        }
+      });
+    });
+
+    $('#denied').on('click',function(){
+      var id = this.getAttribute("data-id");
+      location.href ="/classroom/denied/"+id;
+    });
+  });
+</script>

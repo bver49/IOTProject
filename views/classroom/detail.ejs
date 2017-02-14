@@ -1,0 +1,19 @@
+<% layout('../layout') %>
+<div class="content">
+	<div class="donestatus">
+		<img class="doneico" src="../../img/done.png">
+		<p class="donetxt">Your request is sent.</p>
+	</div>
+	<hr>
+	<div class="donedetail">
+		<p class="txtleft">DATE:<br>TIME:<br>ROOM:<br></p>
+		<p class="txtright">
+      <%= apply.rentdate %><br>
+      <%= apply.renttimeA %>:00 - <%= apply.renttimeB %>:00<br>
+      <%= apply.classroom %><br>
+    </p>
+		<p class="txtleft tiny">Please wait for email notification.</p>
+	</div>
+	<hr><br><br>
+	<a class="btn v2" href="../../">DONE</a>
+</div>

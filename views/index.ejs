@@ -1,0 +1,41 @@
+<% layout('./layout') %>
+<div class="content">
+	<img class="logo" src="../img/logo.png">
+	<div class="photoarea">
+		<% if(user.status < 2){ %>
+			<img class="photo" src="../img/profile.png">
+		<% }else{ %>
+			<img class="photo" src="../img/profile1.jpg">
+		<% } %>
+	</div>
+	<p class="sayhello"><b><%= user.name %></b>，你好！</p><br><br>
+	<a class="btn v2" id="startuse">START</a>
+</div>
+
+<script>
+function adjustpic() {
+  var height = $(".photo").prop("height");
+  var width = $(".photo").prop("width");
+  var length = $(".photoarea").css("width").replace("px", "");
+  var half = length/2 ;
+  var move = 0 ;
+  if (width > height) {
+    $(".photo").css("height",length);
+    $(".photo").css("width","auto");
+    width = $(".photo").attr("width");
+    move = half - width/2;
+    $(".photo").css("margin-left",move);
+  }
+  else {
+    $(".photo").css("width",length);
+    $(".photo").css("height","auto");
+    height = $(".photo").attr("height");
+    move = half - height/2;
+    $(".photo").css("margin-top",move);
+  }
+}
+
+$(document).ready(function(){
+  adjustpic();
+});
+</script>
